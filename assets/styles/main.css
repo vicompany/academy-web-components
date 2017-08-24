@@ -1,0 +1,10 @@
+body {
+    font-family: sans-serif;
+}
+
+.tickers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 2em;
+}

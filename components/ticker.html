@@ -1,0 +1,67 @@
+<template id="template">
+    <style>
+    :host .ticker {
+        text-align: center;
+    }
+
+    :host .ticker__currency-pair {
+        font-size: 1em;
+        margin: 0;
+    }
+
+    :host .ticker__rate {
+        font-family: serif;
+        font-size: 2em;
+    }
+    </style>
+
+    <div class="ticker">
+        <h2 class="ticker__currency-pair">
+            <span class="js-currency-base">EUR</span>/
+            <span class="js-currency-transaction">USD</span>
+        </h2>
+        <div class="ticker__rate js-rate">1.337</div>
+    </div>
+</template>
+
+<style>
+::content > * {
+    color: red;
+}
+</style>
+
+<script>
+const component = document.currentScript.ownerDocument;
+const template = component.getElementById('template');
+
+class Ticker extends HTMLElement {
+    constructor() {
+        super();
+
+        const content = document.importNode(template.content, true);
+
+        this.createShadowRoot();
+        this.shadowRoot.appendChild(content);
+
+        this.shadowRoot.querySelector('.js-currency-base').textContent = this.dataset.currencyBase;
+        this.shadowRoot.querySelector('.js-currency-transaction').textContent = this.dataset.currencyTransaction;
+
+        this.rateContainer = this.shadowRoot.querySelector('.js-rate');
+        this.rateContainer.textContent = this.dataset.rate;
+    }
+
+    static get observedAttributes() {
+        return ['data-rate'];
+    }
+
+    attributeChangedCallback(attribute, oldValue, newValue) {
+        if (attribute !== 'data-rate') {
+            return;
+        }
+
+        this.rateContainer.textContent = Number.parseFloat(newValue).toFixed(Number.parseInt(this.dataset.precision));
+    }
+}
+
+customElements.define('x-ticker', Ticker);
+</script>
