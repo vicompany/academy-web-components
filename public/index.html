@@ -17,6 +17,7 @@
 
     <h2>Rate panels</h2>
     <div class="rate-panel-list js-rate-panel-list"></div>
+    <button class="js-rate-panel-button-add">Add rate panel</button>
 </main>
 
 <script src="assets/scripts/main.js"></script>
@@ -40,8 +41,25 @@ const ratePanels = [
 const ratePanelList = document.querySelector('.js-rate-panel-list');
 const ratePanelButtonAdd  = document.querySelector('.js-rate-panel-button-add');
 
+const onRatePanelClose = (e) => {
+    const ratePanel = e.target;
+    ratePanel.parentElement.removeChild(ratePanel);
+};
+
 ratePanels.forEach((ratePanelSettings) => {
-    ratePanelList.appendChild(createRatePanel(ratePanelSettings));
+    const ratePanel = createRatePanel(ratePanelSettings);
+    ratePanel.addEventListener('close', onRatePanelClose);
+
+    ratePanelList.appendChild(ratePanel);
+});
+
+ratePanelButtonAdd.addEventListener('click', () => {
+    const ratePanelIndex = Math.floor(Math.random() * ratePanels.length);
+    const ratePanelSettings = ratePanels[ratePanelIndex];
+    const ratePanel = createRatePanel(ratePanelSettings);
+    ratePanel.addEventListener('close', onRatePanelClose);
+
+    ratePanelList.appendChild(ratePanel);
 });
 </script>
 
