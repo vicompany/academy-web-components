@@ -7,29 +7,12 @@ const getRate = (min, max) => {
     return random * (max - min) + min;
 };
 
-const createRatePanel = (ticker, rateMin = 1, rateMax = 2) => {
-    const update = () => {
-        ticker.dataset.rate = getRate(rateMin, rateMax);
-    };
+const ratePanel = (rateMin = 1, rateMax = 2) => {
+    return (ratePanel) => {
+        const update = () => {
+            ratePanel.dataset.rate = getRate(rateMin, rateMax);
+        };
 
-    let interval;
-
-    return {
-        start() {
-            if (interval) {
-                this.stop();
-            }
-
-            interval = setInterval(update, 500);
-        },
-
-        stop() {
-            if (!interval) {
-                return;
-            }
-
-            clearInterval(interval);
-            interval = null;
-        },
+        setInterval(update, 500);
     };
 };

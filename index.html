@@ -32,11 +32,8 @@
 
 <script src="assets/scripts/main.js"></script>
 <script>
-createRatePanel(document.getElementById('rate-panel-eur-usd'), 1.1, 1.2)
-    .start();
-
-createRatePanel(document.getElementById('rate-panel-eur-jpy'), 120, 130)
-    .start();
+ratePanel(1.1, 1.2)(document.getElementById('rate-panel-eur-usd'));
+ratePanel(120, 130)(document.getElementById('rate-panel-eur-jpy'));
 </script>
 
 </body>
