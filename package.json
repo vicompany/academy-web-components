@@ -4,8 +4,10 @@
     "start": "nodemon -i public ./index.js"
   },
   "dependencies": {
+    "alea": "0.0.9",
     "express": "^4.15.4",
-    "node-env-file": "^0.1.8"
+    "node-env-file": "^0.1.8",
+    "simplex-noise": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
