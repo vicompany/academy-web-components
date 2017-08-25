@@ -36,16 +36,18 @@ class RatePanel extends HTMLElement {
 
         this.createShadowRoot();
         this.shadowRoot.appendChild(content);
-
-        this.shadowRoot.querySelector('.js-currency-base').textContent = this.dataset.currencyBase;
-        this.shadowRoot.querySelector('.js-currency-transaction').textContent = this.dataset.currencyTransaction;
-
         this.rateContainer = this.shadowRoot.querySelector('.js-rate');
-        this.rateContainer.textContent = this.dataset.rate;
     }
 
     static get observedAttributes() {
         return ['data-rate'];
+    }
+
+    connectedCallback() {
+        this.shadowRoot.querySelector('.js-currency-base').textContent = this.dataset.currencyBase;
+        this.shadowRoot.querySelector('.js-currency-transaction').textContent = this.dataset.currencyTransaction;
+
+        this.rateContainer.textContent = this.dataset.rate;
     }
 
     attributeChangedCallback(attribute, oldValue, newValue) {

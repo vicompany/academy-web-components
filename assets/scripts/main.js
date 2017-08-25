@@ -1,18 +1,21 @@
-const getRate = (min, max) => {
-    const now = Date.now() / 1000;
-    const t = now / 600;
+const createRateFactory = (min = 1, max = 2, frequency = 1) => {
+    return () => {
+        const now = Date.now() / 1000;
+        const random = (Math.sin(now * frequency) + 1) * .5;
 
-    const random = (Math.sin(t) + 1) * 0.5;
-
-    return random * (max - min) + min;
+        return random * (max - min) + min;
+    };
 };
 
-const ratePanel = (rateMin = 1, rateMax = 2) => {
-    return (ratePanel) => {
-        const update = () => {
-            ratePanel.dataset.rate = getRate(rateMin, rateMax);
-        };
-
-        setInterval(update, 500);
+const createRatePanel = (settings, rateRepository = settings.rateRepository) => {
+    const ratePanel = document.createElement('x-rate-panel');
+    const update = () => {
+        ratePanel.dataset.rate = rateRepository();
     };
+
+    Object.assign(ratePanel.dataset, settings);
+
+    setInterval(update, 500);
+
+    return ratePanel;
 };
