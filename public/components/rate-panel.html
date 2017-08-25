@@ -1,0 +1,69 @@
+<template id="template">
+    <style>
+    :host .rate-panel {
+        border: 1px solid #ccc;
+        padding: 1em;
+        text-align: center;
+    }
+
+    :host .rate-panel__currency-pair {
+        margin: 0;
+        color: #888;
+        font-size: 1em;
+    }
+
+    :host .rate-panel__rate {
+        font-family: serif;
+        font-size: 2em;
+    }
+    </style>
+
+    <div class="rate-panel">
+        <h2 class="rate-panel__currency-pair">
+            <span class="rate-panel__currency js-currency-base">-</span> /
+            <span class="rate-panel__currency js-currency-transaction">-</span>
+        </h2>
+        <div class="rate-panel__rate js-rate">-</div>
+    </div>
+</template>
+
+<script>
+const component = document.currentScript.ownerDocument;
+const template = component.getElementById('template');
+
+class RatePanel extends HTMLElement {
+    constructor() {
+        super();
+
+        const content = document.importNode(template.content, true);
+
+        this.createShadowRoot();
+        this.shadowRoot.appendChild(content);
+
+        this.rateContainer = this.shadowRoot.querySelector('.js-rate');
+        this.currencyBaseContainer = this.shadowRoot.querySelector('.js-currency-base');
+        this.currencyTransactionContainer = this.shadowRoot.querySelector('.js-currency-transaction');
+    }
+
+    connectedCallback() {
+        const update = () => this.update();
+
+        setInterval(update, 500);
+
+        this.currencyBaseContainer.textContent = this.dataset.currencyBase;
+        this.currencyTransactionContainer.textContent = this.dataset.currencyTransaction;
+    }
+
+    /*
+     * Disclaimer: I probably should have used WebSockets instead of fetch.
+     */
+    async update() {
+        const response = await fetch(this.dataset.dataUrl);
+        const data = await response.json();
+
+        this.rateContainer.textContent = data.rate.toFixed(data.precision);
+    }
+}
+
+customElements.define('x-rate-panel', RatePanel);
+</script>

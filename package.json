@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "nodemon -i public ./index.js"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "opn": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
