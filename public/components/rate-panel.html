@@ -4,6 +4,7 @@
         border: 1px solid #ccc;
         padding: 1em;
         text-align: center;
+        position: relative;
     }
 
     :host .rate-panel__currency-pair {
@@ -26,6 +27,17 @@
         text-decoration: underline;
         text-decoration-color: #c00;
     }
+
+    :host .rate-panel__button-delete {
+        border: 0;
+        padding: 0;
+        display: block;
+        background: none;
+
+        position: absolute;
+        right: .5em;
+        top: .5em;
+    }
     </style>
 
     <div class="rate-panel">
@@ -34,7 +46,7 @@
             <span class="rate-panel__currency js-currency-transaction">-</span>
         </h2>
         <div class="rate-panel__rate js-rate">-</div>
-        <button class="rate-panel__button-delete js-button-close">Close</button>
+        <button class="rate-panel__button-delete js-button-close">✖</button>
     </div>
 </template>
 
