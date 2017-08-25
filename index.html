@@ -7,7 +7,7 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="/assets/styles/main.css">
-    <link rel="import" href="/components/ticker.html">
+    <link rel="import" href="/components/rate-panel.html">
 </head>
 <body>
 
@@ -15,27 +15,27 @@
     <h1>Web components</h1>
     <p>This page demonstrates various browser features that are often referred to as <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web components</a>.</p>
 
-    <div class="tickers">
-        <x-ticker id="ticker-eur-usd"
+    <div class="rate-panel-list">
+        <x-rate-panel id="rate-panel-eur-usd"
             data-currency-base="EUR"
             data-currency-transaction="USD"
             data-rate="1.17915"
-            data-precision="5"></x-ticker>
+            data-precision="5"></x-rate-panel>
 
-        <x-ticker id="ticker-eur-jpy"
+        <x-rate-panel id="rate-panel-eur-jpy"
             data-currency-base="EUR"
             data-currency-transaction="JPY"
             data-rate="128.953412"
-            data-precision="6"></x-ticker>
+            data-precision="6"></x-rate-panel>
     </div>
 </main>
 
 <script src="assets/scripts/main.js"></script>
 <script>
-createTicker(document.getElementById('ticker-eur-usd'), 1.1, 1.2)
+createRatePanel(document.getElementById('rate-panel-eur-usd'), 1.1, 1.2)
     .start();
 
-createTicker(document.getElementById('ticker-eur-jpy'), 120, 130)
+createRatePanel(document.getElementById('rate-panel-eur-jpy'), 120, 130)
     .start();
 </script>
 

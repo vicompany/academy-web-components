@@ -7,7 +7,7 @@ const getRate = (min, max) => {
     return random * (max - min) + min;
 };
 
-const createTicker = (ticker, rateMin = 1, rateMax = 2) => {
+const createRatePanel = (ticker, rateMin = 1, rateMax = 2) => {
     const update = () => {
         ticker.dataset.rate = getRate(rateMin, rateMax);
     };
