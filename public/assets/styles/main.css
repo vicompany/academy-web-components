@@ -4,7 +4,25 @@ body {
 
 .rate-panel-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+}
+
+@media (min-width: 25em) {
+    .rate-panel-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 50em) {
+    .rate-panel-list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 75em) {
+    .rate-panel-list {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }

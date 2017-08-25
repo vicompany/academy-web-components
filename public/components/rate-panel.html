@@ -16,6 +16,16 @@
         font-family: serif;
         font-size: 2em;
     }
+
+    :host .rate-panel__rate--positive {
+        text-decoration: underline;
+        text-decoration-color: #0c0;
+    }
+
+    :host .rate-panel__rate--negative {
+        text-decoration: underline;
+        text-decoration-color: #c00;
+    }
     </style>
 
     <div class="rate-panel">
@@ -40,15 +50,15 @@ class RatePanel extends HTMLElement {
         this.createShadowRoot();
         this.shadowRoot.appendChild(content);
 
+        this.previousRate = 1;
+
         this.rateContainer = this.shadowRoot.querySelector('.js-rate');
         this.currencyBaseContainer = this.shadowRoot.querySelector('.js-currency-base');
         this.currencyTransactionContainer = this.shadowRoot.querySelector('.js-currency-transaction');
     }
 
     connectedCallback() {
-        const update = () => this.update();
-
-        setInterval(update, 500);
+        setInterval(() => this.update(), 500);
 
         this.currencyBaseContainer.textContent = this.dataset.currencyBase;
         this.currencyTransactionContainer.textContent = this.dataset.currencyTransaction;
@@ -61,7 +71,11 @@ class RatePanel extends HTMLElement {
         const response = await fetch(this.dataset.dataUrl);
         const data = await response.json();
 
+        this.rateContainer.classList.toggle('rate-panel__rate--positive', data.rate > this.previousRate);
+        this.rateContainer.classList.toggle('rate-panel__rate--negative', data.rate < this.previousRate);
         this.rateContainer.textContent = data.rate.toFixed(data.precision);
+
+        this.previousRate = data.rate;
     }
 }
 
