@@ -8,6 +8,8 @@ body {
     grid-column-gap: 1em;
     grid-row-gap: 1em;
     margin-bottom: 1em;
+    padding: 0;
+    list-style-type: none;
 }
 
 @media (min-width: 25em) {

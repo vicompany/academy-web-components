@@ -16,7 +16,7 @@
     <p>This page demonstrates various browser features that are often referred to as <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web components</a>.</p>
 
     <h2>Rate panels</h2>
-    <div class="rate-panel-list js-rate-panel-list"></div>
+    <ul class="rate-panel-list js-rate-panel-list"></ul>
     <button class="js-rate-panel-button-add">Add rate panel</button>
 </main>
 
@@ -43,12 +43,11 @@ const ratePanelButtonAdd  = document.querySelector('.js-rate-panel-button-add');
 
 const onRatePanelClose = (e) => {
     const ratePanel = e.target;
-    ratePanel.parentElement.removeChild(ratePanel);
+    ratePanel.remove();
 };
 
 ratePanels.forEach((ratePanelSettings) => {
     const ratePanel = createRatePanel(ratePanelSettings);
-    ratePanel.addEventListener('close', onRatePanelClose);
 
     ratePanelList.appendChild(ratePanel);
 });
@@ -57,7 +56,6 @@ ratePanelButtonAdd.addEventListener('click', () => {
     const ratePanelIndex = Math.floor(Math.random() * ratePanels.length);
     const ratePanelSettings = ratePanels[ratePanelIndex];
     const ratePanel = createRatePanel(ratePanelSettings);
-    ratePanel.addEventListener('close', onRatePanelClose);
 
     ratePanelList.appendChild(ratePanel);
 });

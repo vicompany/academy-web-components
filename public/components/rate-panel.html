@@ -1,34 +1,34 @@
 <template id="template">
     <style>
-    :host .rate-panel {
+    .rate-panel {
         border: 1px solid #ccc;
         padding: 1em;
         text-align: center;
         position: relative;
     }
 
-    :host .rate-panel__currency-pair {
+    .rate-panel__currency-pair {
         margin: 0;
         color: #888;
         font-size: 1em;
     }
 
-    :host .rate-panel__rate {
+    .rate-panel__rate {
         font-family: serif;
         font-size: 2em;
     }
 
-    :host .rate-panel__rate--positive {
+    .rate-panel__rate--positive {
         text-decoration: underline;
         text-decoration-color: #0c0;
     }
 
-    :host .rate-panel__rate--negative {
+    .rate-panel__rate--negative {
         text-decoration: underline;
         text-decoration-color: #c00;
     }
 
-    :host .rate-panel__button-delete {
+    .rate-panel__button-delete {
         border: 0;
         padding: 0;
         display: block;
@@ -40,14 +40,14 @@
     }
     </style>
 
-    <div class="rate-panel">
+    <li class="rate-panel">
         <h2 class="rate-panel__currency-pair">
             <span class="rate-panel__currency js-currency-base">-</span> /
             <span class="rate-panel__currency js-currency-transaction">-</span>
         </h2>
         <div class="rate-panel__rate js-rate">-</div>
-        <button class="rate-panel__button-delete js-button-close">✖</button>
-    </div>
+        <button class="rate-panel__button-delete js-button-close" aria-label="Remove rate panel">✖</button>
+    </li>
 </template>
 
 <script>
@@ -84,8 +84,7 @@ class RatePanel extends HTMLElement {
         clearInterval(this.interval);
         this.interval = null;
 
-        const event = new Event('close');
-        this.dispatchEvent(event);
+        this.remove();
     }
 
     /*
