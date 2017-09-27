@@ -74,8 +74,8 @@ class RatePanel extends HTMLElement {
     connectedCallback() {
         this.interval = setInterval(() => this.update(), 500);
 
-        this.currencyBaseContainer.textContent = this.dataset.currencyBase;
-        this.currencyTransactionContainer.textContent = this.dataset.currencyTransaction;
+        this.currencyBaseContainer.textContent = this.getAttribute('currencyBase');
+        this.currencyTransactionContainer.textContent = this.getAttribute('currencyTransaction');
 
         this.buttonClose.addEventListener('click', () => this.close());
     }
@@ -91,7 +91,7 @@ class RatePanel extends HTMLElement {
      * Disclaimer: I probably should have used WebSockets instead of fetch.
      */
     async update() {
-        const response = await fetch(this.dataset.dataUrl);
+        const response = await fetch(this.getAttribute('dataUrl'));
         const data = await response.json();
 
         this.rateContainer.classList.toggle('rate-panel__rate--positive', data.rate > this.previousRate);
