@@ -1,34 +1,34 @@
 <template id="template">
     <style>
-    .rate-panel {
+    :host {
         border: 1px solid #ccc;
         padding: 1em;
         text-align: center;
         position: relative;
     }
 
-    .rate-panel__currency-pair {
+    .currency-pair {
         margin: 0;
         color: #888;
         font-size: 1em;
     }
 
-    .rate-panel__rate {
+    .rate {
         font-family: serif;
         font-size: 2em;
     }
 
-    .rate-panel__rate--positive {
+    .rate--positive {
         text-decoration: underline;
         text-decoration-color: #0c0;
     }
 
-    .rate-panel__rate--negative {
+    .rate--negative {
         text-decoration: underline;
         text-decoration-color: #c00;
     }
 
-    .rate-panel__button-delete {
+    .button-delete {
         border: 0;
         padding: 0;
         display: block;
@@ -40,13 +40,13 @@
     }
     </style>
 
-    <li class="rate-panel">
-        <h2 class="rate-panel__currency-pair">
-            <span class="rate-panel__currency js-currency-base">-</span> /
-            <span class="rate-panel__currency js-currency-transaction">-</span>
+    <li>
+        <h2 class="currency-pair">
+            <span class="currency js-currency-base">-</span> /
+            <span class="currency js-currency-transaction">-</span>
         </h2>
-        <div class="rate-panel__rate js-rate">-</div>
-        <button class="rate-panel__button-delete js-button-close" aria-label="Remove rate panel">✖</button>
+        <div class="rate js-rate">-</div>
+        <button class="button-delete js-button-close" aria-label="Remove rate panel">✖</button>
     </li>
 </template>
 
@@ -94,8 +94,8 @@ class RatePanel extends HTMLElement {
         const response = await fetch(this.getAttribute('dataUrl'));
         const data = await response.json();
 
-        this.rateContainer.classList.toggle('rate-panel__rate--positive', data.rate > this.previousRate);
-        this.rateContainer.classList.toggle('rate-panel__rate--negative', data.rate < this.previousRate);
+        this.rateContainer.classList.toggle('rate--positive', data.rate > this.previousRate);
+        this.rateContainer.classList.toggle('rate--negative', data.rate < this.previousRate);
         this.rateContainer.textContent = data.rate.toFixed(data.precision);
 
         this.previousRate = data.rate;
